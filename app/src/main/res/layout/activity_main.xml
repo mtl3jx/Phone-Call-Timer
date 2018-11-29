@@ -35,6 +35,7 @@
         android:textOn="@string/timer_enabled" />
 
     <LinearLayout
+        android:id="@+id/mode_switch_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

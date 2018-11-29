@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     // view
     ToggleButton toggleButton;
     SwitchCompat switchTimerMode;
+    View modeSwitchContainer;
     TextView modeDescription, labelTimer, labelCountdown;
 
     @Override
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeView() {
         toggleButton = findViewById(R.id.button_timer_start);
+        modeSwitchContainer = findViewById(R.id.mode_switch_container);
         modeDescription = findViewById(R.id.mode_description);
         switchTimerMode = findViewById(R.id.switch_timer_mode);
         labelCountdown = findViewById(R.id.label_countdown);
@@ -43,6 +45,22 @@ public class MainActivity extends AppCompatActivity {
      * initializes functionality of timer toggle button
      */
     private void initializeToggleButton() {
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                // TODO: validate timer can be started / countdown time > 0
+
+                // show / hide mode switch
+                if (b) {
+                    modeSwitchContainer.setVisibility(View.INVISIBLE);
+                } else {
+                    modeSwitchContainer.setVisibility(View.VISIBLE);
+                }
+
+                isTimerRunning = b;
+            }
+        });
     }
 
     /**
