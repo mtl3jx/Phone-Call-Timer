@@ -12,21 +12,48 @@
         <item name="android:layout_weight">2</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">80sp</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="TimerColonText" parent="AppTheme">
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="TimerLabelText" parent="AppTheme">
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="CountdownText" parent="AppTheme">
+        <item name="android:layout_weight">2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">80sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="CountdownColonText" parent="AppTheme">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="CountdownLabelText" parent="AppTheme">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="SwitchModeLabel" parent="AppTheme">
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

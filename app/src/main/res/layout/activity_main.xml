@@ -7,17 +7,58 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/mode_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/mode_timer_description"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent" />
+
     <FrameLayout
         android:id="@+id/main_activity_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_timer_mode"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/label_countdown"
+            style="@style/SwitchModeLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="@string/mode_countdown"
+            android:textColor="@color/colorPrimaryDark"
+            tools:visibility="invisible" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_timer_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textAlignment="center"
+            tools:checked="true" />
+
+        <TextView
+            android:id="@+id/label_timer"
+            style="@style/SwitchModeLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="@string/mode_timer"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

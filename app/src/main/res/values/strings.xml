@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Phone Call Timer</string>
+
+    <!-- main screen-->
+    <string name="mode_countdown_description">hang up in</string>
+    <string name="mode_timer_description">hang up at</string>
+    <string name="mode_timer">timer</string>
+    <string name="mode_countdown">countdown</string>
+
+    <!-- countdown / timer fragment -->
     <string name="timer_number_value">%1$d</string>
     <string name="timer_hrs">hrs</string>
     <string name="timer_mins">mins</string>
@@ -7,4 +15,5 @@
     <string name="timer_colon">:</string>
     <string name="timer_am">AM</string>
     <string name="timer_pm">PM</string>
+
 </resources>
