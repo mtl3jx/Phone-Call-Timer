@@ -17,5 +17,8 @@
     <string name="timer_pm">PM</string>
     <string name="timer_enabled">Stop</string>
     <string name="timer_disabled">Start</string>
+    <string name="permissions_rationale">We need your permission in order to hang up phone calls</string>
+    <string name="no_active_call">No active phone call to kill... Resetting timer...</string>
+    <string name="call_kill_success">We\'ve hung up your phone call</string>
 
 </resources>

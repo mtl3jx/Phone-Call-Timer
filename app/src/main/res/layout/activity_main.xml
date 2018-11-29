@@ -29,6 +29,7 @@
         android:layout_marginRight="150dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/toggle_button_selector"
+        android:enabled="false"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textOff="@string/timer_disabled"
