@@ -10,8 +10,8 @@
         android:id="@+id/mode_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:padding="5dp"
+        android:layout_marginTop="20dp"
         android:text="@string/mode_timer_description"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark" />
@@ -19,15 +19,15 @@
     <FrameLayout
         android:id="@+id/main_activity_content"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="150dp" />
 
     <ToggleButton
         android:id="@+id/button_timer_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="150dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginRight="250dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/toggle_button_selector"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
@@ -35,6 +35,7 @@
         android:textOn="@string/timer_enabled" />
 
     <LinearLayout
+        android:id="@+id/mode_switch_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
