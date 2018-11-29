@@ -28,7 +28,7 @@ public abstract class KillCallManager {
         currentTime.setTime(now);
         timeToKillCall.setTime(now);
 
-        // set the alarm for timer mode -- TODO: validate for 24 HR time
+        // set the alarm for timer mode in 24 HR time
         timeToKillCall.set(Calendar.HOUR_OF_DAY, hours);
         timeToKillCall.set(Calendar.MINUTE, mins);
         timeToKillCall.set(Calendar.SECOND, seconds);

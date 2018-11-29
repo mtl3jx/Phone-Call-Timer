@@ -9,11 +9,15 @@ import android.widget.TextView;
 
 import com.mluansing.phonecalltimer.R;
 
+import java.text.DecimalFormat;
+
 public class TimerFragment extends Fragment {
 
     private static final int HOURS = 15, MINS = 0, SECONDS = 0;
 
     TextView hours, mins, seconds;
+
+    private static final DecimalFormat FORMATTER_TIME = new DecimalFormat("00");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -29,9 +33,9 @@ public class TimerFragment extends Fragment {
         mins = view.findViewById(R.id.timer_minutes);
         seconds = view.findViewById(R.id.timer_seconds);
 
-        hours.setText(getString(R.string.timer_number_value, HOURS));
-        mins.setText(getString(R.string.timer_number_value, MINS));
-        seconds.setText(getString(R.string.timer_number_value, SECONDS));
+        hours.setText(getString(R.string.timer_number_value, String.valueOf(HOURS)));
+        mins.setText(getString(R.string.timer_number_value, FORMATTER_TIME.format(MINS)));
+        seconds.setText(getString(R.string.timer_number_value, FORMATTER_TIME.format(SECONDS)));
     }
 
     public int getHours() {

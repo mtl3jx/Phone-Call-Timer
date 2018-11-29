@@ -100,8 +100,9 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
                 // TODO: validate timer can be started / countdown time > 0
+                isTimerRunning = b;
 
-                if (!b) {
+                if (!isTimerRunning) {
                     modeSwitchContainer.setVisibility(View.VISIBLE);
 
                     // cancel timer
@@ -136,8 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
                     // TODO: start view changes
                 }
-
-                isTimerRunning = b;
             }
         });
     }
@@ -153,8 +152,9 @@ public class MainActivity extends AppCompatActivity {
         switchTimerMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                SharedPreferenceUtil.setDefaultTimer(MainActivity.this, b);
-                changeTimerMode(b);
+                isTimerMode = b;
+                SharedPreferenceUtil.setDefaultTimer(MainActivity.this, isTimerMode);
+                changeTimerMode(isTimerMode);
             }
         });
     }
