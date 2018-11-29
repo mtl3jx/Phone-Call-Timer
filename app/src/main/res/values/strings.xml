@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Phone Call Timer</string>
+    <string name="timer_number_value">%1$d</string>
+    <string name="timer_hrs">hrs</string>
+    <string name="timer_mins">mins</string>
+    <string name="timer_secs">secs</string>
+    <string name="timer_colon">:</string>
+    <string name="timer_am">AM</string>
+    <string name="timer_pm">PM</string>
+</resources>
