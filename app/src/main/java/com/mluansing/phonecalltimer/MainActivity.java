@@ -6,6 +6,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.mluansing.phonecalltimer.util.SharedPreferenceUtil;
 
@@ -13,8 +14,10 @@ public class MainActivity extends AppCompatActivity {
 
     CountdownFragment countdownFragment;
     TimerFragment timerFragment;
+    boolean isTimerRunning = false;
 
     // view
+    ToggleButton toggleButton;
     SwitchCompat switchTimerMode;
     TextView modeDescription, labelTimer, labelCountdown;
 
@@ -25,13 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
         initializeView();
         initializeTimerMode();
+        initializeToggleButton();
     }
 
     private void initializeView() {
+        toggleButton = findViewById(R.id.button_timer_start);
         modeDescription = findViewById(R.id.mode_description);
         switchTimerMode = findViewById(R.id.switch_timer_mode);
         labelCountdown = findViewById(R.id.label_countdown);
         labelTimer = findViewById(R.id.label_timer);
+    }
+
+    /**
+     * initializes functionality of timer toggle button
+     */
+    private void initializeToggleButton() {
     }
 
     /**
@@ -63,14 +74,12 @@ public class MainActivity extends AppCompatActivity {
             timerFragment = new TimerFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_content, timerFragment).commit();
             modeDescription.setText(R.string.mode_timer_description);
-            modeDescription.setTextColor(getResources().getColor(R.color.colorAccent));
             labelCountdown.setVisibility(View.INVISIBLE);
             labelTimer.setVisibility(View.VISIBLE);
         } else {
             countdownFragment = new CountdownFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_content, countdownFragment).commit();
             modeDescription.setText(R.string.mode_countdown_description);
-            modeDescription.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
             labelTimer.setVisibility(View.INVISIBLE);
             labelCountdown.setVisibility(View.VISIBLE);
         }

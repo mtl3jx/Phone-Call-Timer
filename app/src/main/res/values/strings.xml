@@ -15,5 +15,7 @@
     <string name="timer_colon">:</string>
     <string name="timer_am">AM</string>
     <string name="timer_pm">PM</string>
+    <string name="timer_enabled">Stop</string>
+    <string name="timer_disabled">Start</string>
 
 </resources>
