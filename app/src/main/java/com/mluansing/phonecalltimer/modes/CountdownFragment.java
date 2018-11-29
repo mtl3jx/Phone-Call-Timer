@@ -12,19 +12,40 @@ import com.mluansing.phonecalltimer.R;
 
 import java.text.DecimalFormat;
 
+import static com.mluansing.phonecalltimer.Constants.CURRENT_HOURS;
+import static com.mluansing.phonecalltimer.Constants.CURRENT_MINUTES;
+import static com.mluansing.phonecalltimer.Constants.CURRENT_SECONDS;
+
 public class CountdownFragment extends Fragment {
 
     public static final String TAG = CountdownFragment.class.getSimpleName();
 
-    private static final int HOURS = 0, MINS = 0, SECONDS = 30;
-
-    TextView hours, mins, seconds;
+    int hours, mins, seconds;
+    TextView hoursText, minsText, secondsText;
 
     private static final DecimalFormat FORMATTER_TIME = new DecimalFormat("00");
+
+    public static CountdownFragment newInstance(int hours, int minutes, int seconds) {
+        CountdownFragment fragment = new CountdownFragment();
+
+        Bundle args = new Bundle();
+        args.putInt(CURRENT_HOURS, hours);
+        args.putInt(CURRENT_MINUTES, minutes);
+        args.putInt(CURRENT_SECONDS, seconds);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_countdown, viewGroup, false);
+
+        if (getArguments() != null) {
+            hours = getArguments().getInt(CURRENT_HOURS);
+            mins = getArguments().getInt(CURRENT_MINUTES);
+            seconds = getArguments().getInt(CURRENT_SECONDS);
+        }
 
         initializeCountdownView(view);
 
@@ -32,42 +53,42 @@ public class CountdownFragment extends Fragment {
     }
 
     private void initializeCountdownView(View view) {
-        hours = view.findViewById(R.id.timer_hours);
-        mins = view.findViewById(R.id.timer_minutes);
-        seconds = view.findViewById(R.id.timer_seconds);
+        hoursText = view.findViewById(R.id.timer_hours);
+        minsText = view.findViewById(R.id.timer_minutes);
+        secondsText = view.findViewById(R.id.timer_seconds);
 
-        hours.setText(FORMATTER_TIME.format(HOURS));
-        mins.setText(FORMATTER_TIME.format(MINS));
-        seconds.setText(FORMATTER_TIME.format(SECONDS));
+        hoursText.setText(FORMATTER_TIME.format(hours));
+        minsText.setText(FORMATTER_TIME.format(mins));
+        secondsText.setText(FORMATTER_TIME.format(seconds));
     }
 
     public int getHours() {
-        return Integer.parseInt(hours.getText().toString());
+        return hours;
     }
 
     public int getMinutes() {
-        return Integer.parseInt(mins.getText().toString());
+        return mins;
     }
 
     public int getSeconds() {
-        return Integer.parseInt(seconds.getText().toString());
+        return seconds;
     }
 
     public boolean decrementHours() {
-        int temp = getHours();
-        if (temp >= 1) {
-            hours.setText(String.valueOf(temp - 1));
+        if (hours >= 1) {
+            hours--;
+            hoursText.setText(String.valueOf(hours));
             return true;
         } else {
-            Log.e(TAG, "Could not decrement hours less than 0");
+            Log.e(TAG, "Could not decrement hoursText less than 0");
             return false;
         }
     }
 
     public boolean decrementMinutes() {
-        int temp = getMinutes();
-        if (temp >= 1) {
-            mins.setText(String.valueOf(temp - 1));
+        if (mins >= 1) {
+            mins--;
+            minsText.setText(String.valueOf(mins));
             return true;
         } else {
             Log.e(TAG, "Could not decrement minutes less than 0");
@@ -76,13 +97,12 @@ public class CountdownFragment extends Fragment {
     }
 
     public boolean decrementSeconds() {
-        int temp = getSeconds();
-        if (temp >= 1) {
-            String newValue = String.valueOf(temp - 1);
-            seconds.setText(newValue);
+        if (seconds >= 1) {
+            seconds--;
+            secondsText.setText(String.valueOf(seconds));
             return true;
         } else {
-            Log.e(TAG, "Could not decrement seconds less than 0");
+            Log.e(TAG, "Could not decrement secondsText less than 0");
             return false;
         }
     }

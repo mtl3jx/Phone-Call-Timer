@@ -19,6 +19,13 @@ import com.mluansing.phonecalltimer.modes.CountdownFragment;
 import com.mluansing.phonecalltimer.modes.TimerFragment;
 import com.mluansing.phonecalltimer.util.SharedPreferenceUtil;
 
+import static com.mluansing.phonecalltimer.Constants.CURRENT_HOURS;
+import static com.mluansing.phonecalltimer.Constants.CURRENT_MINUTES;
+import static com.mluansing.phonecalltimer.Constants.CURRENT_SECONDS;
+import static com.mluansing.phonecalltimer.Constants.DEFAULT_COUNTDOWN_HOURS;
+import static com.mluansing.phonecalltimer.Constants.DEFAULT_COUNTDOWN_MINUTES;
+import static com.mluansing.phonecalltimer.Constants.DEFAULT_COUNTDOWN_SECONDS;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -47,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         instance = this;
 
+        if (savedInstanceState != null) {
+            if (!isTimerMode) {
+                int hours = savedInstanceState.getInt(CURRENT_HOURS);
+                int mins = savedInstanceState.getInt(CURRENT_MINUTES);
+                int seconds = savedInstanceState.getInt(CURRENT_SECONDS);
+
+                countdownFragment = CountdownFragment.newInstance(hours, mins, seconds);
+                timerFragment = null;
+            }
+        }
+
         setContentView(R.layout.activity_main);
 
         initializeView();
@@ -54,6 +72,32 @@ public class MainActivity extends AppCompatActivity {
         initializeToggleButton();
 
         askUserForPermissions();
+
+        // TODO: on rotation, resume timer where it was
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        int hours, mins, secs;
+
+        if (isTimerMode) {
+            hours = timerFragment.getHours();
+            mins = timerFragment.getMinutes();
+            secs = timerFragment.getSeconds();
+
+
+        } else {
+            hours = countdownFragment.getHours();
+            mins = countdownFragment.getMinutes();
+            secs = countdownFragment.getSeconds();
+
+        }
+
+        outState.putInt(CURRENT_HOURS, hours);
+        outState.putInt(CURRENT_MINUTES, mins);
+        outState.putInt(CURRENT_SECONDS, secs);
     }
 
     @Override
@@ -195,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
      * initializes view mode based on user preferences
      */
     private void initializeTimerMode() {
-        changeTimerMode(isTimerMode);
+        changeTimerMode();
 
         switchTimerMode.setChecked(isTimerMode);
 
@@ -204,25 +248,31 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 isTimerMode = b;
                 SharedPreferenceUtil.setDefaultTimer(MainActivity.this, isTimerMode);
-                changeTimerMode(isTimerMode);
+                changeTimerMode();
             }
         });
     }
 
     /**
      * replaces timer mode fragment
-     *
-     * @param isTimer true uses TimerFragment, false uses CountdownFragment
+     * <p>
+     * isTimerMode true uses TimerFragment, false uses CountdownFragment
      */
-    private void changeTimerMode(boolean isTimer) {
-        if (isTimer) {
-            timerFragment = new TimerFragment();
+    private void changeTimerMode() {
+        if (isTimerMode) {
+            if (timerFragment == null) {
+                timerFragment = new TimerFragment();
+                countdownFragment = null;
+            }
             getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_content, timerFragment).commit();
             modeDescription.setText(R.string.mode_timer_description);
             labelCountdown.setVisibility(View.INVISIBLE);
             labelTimer.setVisibility(View.VISIBLE);
         } else {
-            countdownFragment = new CountdownFragment();
+            if (countdownFragment == null) {
+                countdownFragment = CountdownFragment.newInstance(DEFAULT_COUNTDOWN_HOURS, DEFAULT_COUNTDOWN_MINUTES, DEFAULT_COUNTDOWN_SECONDS);
+                timerFragment = null;
+            }
             getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_content, countdownFragment).commit();
             modeDescription.setText(R.string.mode_countdown_description);
             labelTimer.setVisibility(View.INVISIBLE);
@@ -264,10 +314,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void resetClock() {
-        changeTimerMode(isTimerMode);
+        countdownFragment = null;
+        timerFragment = null;
+
+        changeTimerMode();
         toggleButton.setChecked(false);
 
         // stop live clock updates
-        timerHandler.removeCallbacksAndMessages(null);
+        if (timerHandler != null) {
+            timerHandler.removeCallbacksAndMessages(null);
+        }
     }
 }
