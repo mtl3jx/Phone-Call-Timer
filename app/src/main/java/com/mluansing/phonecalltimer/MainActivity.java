@@ -3,6 +3,7 @@ package com.mluansing.phonecalltimer;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     CountdownFragment countdownFragment;
     TimerFragment timerFragment;
     boolean isTimerRunning = false, isTimerMode;
+    Handler timerHandler;
+    Runnable secUpdater, minUpdater, hourUpdater;
 
     // view
     ToggleButton toggleButton;
@@ -133,12 +136,59 @@ public class MainActivity extends AppCompatActivity {
 
                         // start countdown
                         KillCallManager.setCountdown(MainActivity.this, hours, mins, secs);
-                    }
 
-                    // TODO: start view changes
+                        showLiveClockChanges();
+                    }
                 }
             }
         });
+    }
+
+    private void showLiveClockChanges() {
+        timerHandler = new Handler();
+
+        secUpdater = new Runnable() {
+            @Override
+            public void run() {
+                boolean success = countdownFragment.decrementSeconds();
+
+                if (success) {
+                    timerHandler.postDelayed(secUpdater, 1000);
+                } else {
+                    timerHandler.removeCallbacks(secUpdater);
+                }
+            }
+        };
+        timerHandler.post(secUpdater);
+
+        minUpdater = new Runnable() {
+            @Override
+            public void run() {
+                boolean success = countdownFragment.decrementMinutes();
+
+                if (success) {
+                    timerHandler.postDelayed(minUpdater, 60 * 1000);
+                } else {
+                    timerHandler.removeCallbacks(minUpdater);
+                }
+            }
+        };
+        timerHandler.post(minUpdater);
+
+        hourUpdater = new Runnable() {
+            @Override
+            public void run() {
+                boolean success = countdownFragment.decrementHours();
+
+                if (success) {
+                    timerHandler.postDelayed(hourUpdater, 60 * 60 * 1000);
+                } else {
+                    timerHandler.removeCallbacks(hourUpdater);
+                }
+            }
+        };
+        timerHandler.post(hourUpdater);
+
     }
 
     /**
@@ -216,5 +266,8 @@ public class MainActivity extends AppCompatActivity {
     public void resetClock() {
         changeTimerMode(isTimerMode);
         toggleButton.setChecked(false);
+
+        // stop live clock updates
+        timerHandler.removeCallbacksAndMessages(null);
     }
 }

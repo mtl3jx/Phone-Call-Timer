@@ -8,7 +8,6 @@
     <string name="mode_countdown">countdown</string>
 
     <!-- countdown / timer fragment -->
-    <string name="timer_number_value">%1$s</string>
     <string name="timer_hrs">hrs</string>
     <string name="timer_mins">mins</string>
     <string name="timer_secs">secs</string>

@@ -33,9 +33,9 @@ public class TimerFragment extends Fragment {
         mins = view.findViewById(R.id.timer_minutes);
         seconds = view.findViewById(R.id.timer_seconds);
 
-        hours.setText(getString(R.string.timer_number_value, String.valueOf(HOURS)));
-        mins.setText(getString(R.string.timer_number_value, FORMATTER_TIME.format(MINS)));
-        seconds.setText(getString(R.string.timer_number_value, FORMATTER_TIME.format(SECONDS)));
+        hours.setText(String.valueOf(HOURS));
+        mins.setText(FORMATTER_TIME.format(MINS));
+        seconds.setText(FORMATTER_TIME.format(SECONDS));
     }
 
     public int getHours() {
